@@ -132,7 +132,7 @@
     mixins: [validationMixin],
     async mounted() {
       try {
-        await axios.get('http://localhost:9090/inventory')
+        await axios.get('http://localhost:8080/inventory')
         this.times = this.currentInventory.inventory;
       } catch (error) {
         console.error(error)
@@ -185,8 +185,8 @@
           currentInventory.clear();
           if(val) {
             const date = moment(this.form.date).format('YYYY-MM-DD');
-            axios.get(`http://localhost:9090/inventory/${date}`).then(inventory => {
-              axios.get(`http://localhost:9090/reservation/${date}`).then(reservations => {
+            axios.get(`http://localhost:8080/inventory/${date}`).then(inventory => {
+              axios.get(`http://localhost:8080/reservation/${date}`).then(reservations => {
                 currentInventory.updateInventory(reservations.data, inventory.data);
               })
             });
@@ -225,7 +225,7 @@
           time: this.form.time
         }
 
-        axios.post('http://localhost:9090/reservation', reservation).then(response => {
+        axios.post('http://localhost:8080/reservation', reservation).then(response => {
           if(response.status === 200) {
             reservation.id = response.data.id;
             this.lastReservation = `Successfully booked ${this.form.name} (${this.form.email}), party of ${this.form.size} at ${this.form.time} `

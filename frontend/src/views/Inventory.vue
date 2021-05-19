@@ -44,7 +44,7 @@ export default {
 
   async mounted() {
     try {
-      const inventory = await axios.get('http://localhost:9090/inventory');
+      const inventory = await axios.get('http://localhost:8080/inventory');
       this.loadState(inventory.data);
     } catch (error) {
       console.error(error)
@@ -72,10 +72,10 @@ export default {
         start: schedule.start || null,
         end: schedule.end || null
       }
-      axios.post('http://localhost:9090/inventory', inventory);
+      axios.post('http://localhost:8080/inventory', inventory);
     },
     removeEvent($event) {
-      axios.delete('http://localhost:9090/inventory/' + $event.data.id);
+      axios.delete('http://localhost:8080/inventory/' + $event.data.id);
     },
     saveState()
     {
